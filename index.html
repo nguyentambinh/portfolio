@@ -1,0 +1,118 @@
+<!doctype html>
+<!-- Nguyễn Tâm Bình - 2324801030003 -->
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Nguyễn Tâm Bình · Portfolio</title>
+  <meta name="description" content="Portfolio của Nguyễn Tâm Bình, sinh viên Kỹ thuật phần mềm, Đại học Thủ Dầu Một.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Be+Vietnam+Pro:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="top">
+    <a class="mark" href="#dau">NTB</a>
+    <nav>
+      <a href="#gioi-thieu">Giới thiệu</a>
+      <a href="#du-an">Dự án</a>
+      <a href="#ky-nang">Kỹ năng</a>
+      <a href="#lien-he">Liên hệ</a>
+    </nav>
+    <button id="che-do" class="mode" type="button" aria-label="Đổi giao diện sáng tối">◐</button>
+  </header>
+
+  <main>
+    <section id="dau" class="hero">
+      <p class="tag">Sinh viên Kỹ thuật phần mềm · Đại học Thủ Dầu Một</p>
+      <h1>Nguyễn Tâm Bình</h1>
+      <p class="lead">Mình làm phần mềm từ ứng dụng di động, web tới hạ tầng đám mây: dựng hệ thống chạy thật, đo bằng số liệu thật và viết lại cho người khác dùng được.</p>
+      <div class="cta">
+        <a class="btn primary" href="#du-an">Xem dự án</a>
+        <a class="btn" href="https://github.com/nguyentambinh" target="_blank" rel="noopener">GitHub</a>
+      </div>
+      <dl class="stats">
+        <div><dt>Dự án nhóm</dt><dd data-dem="6">0</dd></div>
+        <div><dt>Năm học</dt><dd>2023 - 2027</dd></div>
+        <div><dt>Ngôn ngữ chính</dt><dd>Dart · Python · Java</dd></div>
+      </dl>
+    </section>
+
+    <section id="gioi-thieu" class="block">
+      <h2>Giới thiệu</h2>
+      <div class="two">
+        <p>Mình học ngành Kỹ thuật phần mềm tại Viện Công nghệ số, Đại học Thủ Dầu Một, lớp D23KTPM01. Phần lớn thời gian mình dành cho các dự án nhóm: từ phân tích yêu cầu, thiết kế kiến trúc, viết code tới triển khai lên máy chủ và viết báo cáo.</p>
+        <p>Mình thích những bài toán có ràng buộc thật: mạng nhà sau CGNAT, máy chủ chỉ có 512 MB RAM cho cơ sở dữ liệu, mô hình học máy chạy hoàn toàn bằng CPU. Giải được những ràng buộc đó là phần mình thấy vui nhất.</p>
+      </div>
+    </section>
+
+    <section id="du-an" class="block">
+      <h2>Dự án</h2>
+      <div class="filters" role="group" aria-label="Lọc dự án">
+        <button class="chip on" data-loc="tat-ca" type="button">Tất cả</button>
+        <button class="chip" data-loc="cloud" type="button">Đám mây</button>
+        <button class="chip" data-loc="web" type="button">Web</button>
+        <button class="chip" data-loc="ai" type="button">Học máy</button>
+        <button class="chip" data-loc="mobile" type="button">Di động</button>
+      </div>
+      <div class="grid">
+        <article class="card" data-nhom="cloud web">
+          <span class="num">01</span>
+          <h3>TBT Cloud</h3>
+          <p>Nền tảng đám mây phân tán cung cấp máy chủ ảo từ máy tính cá nhân: Proxmox VE trên nhiều máy, mạng WireGuard, Control API FastAPI, web Flutter, tính tiền theo giờ, nạp tiền qua payOS, IPv6 riêng cho từng VPS.</p>
+          <ul class="tags"><li>Proxmox VE</li><li>FastAPI</li><li>Flutter Web</li><li>WireGuard</li></ul>
+        </article>
+        <article class="card" data-nhom="web">
+          <span class="num">02</span>
+          <h3>Hệ thống quản lý Đoàn – Hội</h3>
+          <p>Web và ứng dụng Android quản lý báo cáo, kế hoạch, cán bộ cho Đoàn trường, có AI phân tích tài liệu, sơ đồ cán bộ 2D/3D, chạy trên VPS qua Cloudflare Tunnel.</p>
+          <ul class="tags"><li>Flutter</li><li>Supabase</li><li>PostgreSQL</li><li>Docker</li></ul>
+        </article>
+        <article class="card" data-nhom="ai">
+          <span class="num">03</span>
+          <h3>Phát hiện lỗ hổng bằng LLM và GNN</h3>
+          <p>Phát hiện lỗ hổng bảo mật trong mã nguồn năm ngôn ngữ: đồ thị CPG từ Joern, embedding UniXcoder, mạng nơ-ron đồ thị, Qwen2.5-Coder và mô hình xếp chồng, có app demo giải thích kết quả.</p>
+          <ul class="tags"><li>PyTorch Geometric</li><li>Joern</li><li>LLM</li></ul>
+        </article>
+        <article class="card" data-nhom="cloud web">
+          <span class="num">04</span>
+          <h3>Insurance Microservices</h3>
+          <p>Hệ thống bảo hiểm theo kiến trúc microservices: .NET, RabbitMQ, Elasticsearch, Eureka, triển khai Docker Compose trên VPS, kiểm chứng hiệu suất bằng k6.</p>
+          <ul class="tags"><li>.NET</li><li>RabbitMQ</li><li>Docker</li><li>k6</li></ul>
+        </article>
+        <article class="card" data-nhom="mobile">
+          <span class="num">05</span>
+          <h3>Quản lý nhân sự và tài chính</h3>
+          <p>Ứng dụng Android quản lý nhân sự, chấm công, lương và tài chính doanh nghiệp, nâng cấp lên Flutter với các dịch vụ dart_frog tách theo khu vực.</p>
+          <ul class="tags"><li>Android Java</li><li>SQLite</li><li>Flutter</li></ul>
+        </article>
+      </div>
+    </section>
+
+    <section id="ky-nang" class="block">
+      <h2>Kỹ năng</h2>
+      <div class="skills">
+        <div><h3>Ngôn ngữ</h3><p>Dart, Python, Java, C#, JavaScript, SQL</p></div>
+        <div><h3>Ứng dụng</h3><p>Flutter (web, Android), FastAPI, ASP.NET Core, Node.js</p></div>
+        <div><h3>Dữ liệu</h3><p>PostgreSQL, SQLite, Supabase, Elasticsearch</p></div>
+        <div><h3>Hạ tầng</h3><p>Proxmox VE, Docker, Linux, WireGuard, Cloudflare Tunnel, nginx</p></div>
+        <div><h3>Học máy</h3><p>PyTorch, PyTorch Geometric, scikit-learn, Hugging Face</p></div>
+        <div><h3>Làm việc nhóm</h3><p>Git, phân tích yêu cầu, UML, viết báo cáo kỹ thuật</p></div>
+      </div>
+    </section>
+
+    <section id="lien-he" class="block contact">
+      <h2>Liên hệ</h2>
+      <p>Muốn trao đổi về dự án hay cùng làm một sản phẩm, cứ nhắn mình qua GitHub.</p>
+      <a class="btn primary" href="https://github.com/nguyentambinh" target="_blank" rel="noopener">github.com/nguyentambinh</a>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <span>© <span id="nam">2026</span> Nguyễn Tâm Bình</span>
+    <span id="noi-chay">Trang tĩnh, chạy trên nginx</span>
+  </footer>
+  <script src="main.js"></script>
+</body>
+</html>
