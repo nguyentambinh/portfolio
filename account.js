@@ -2,7 +2,7 @@
 async function post(action, data) {
   const response = await fetch(`/api/auth/${action}`, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+    headers: { 'Content-Type': 'application/json', 'X-Portfolio-Origin': location.origin },
     body: JSON.stringify(data),
   });
   const result = await response.json();

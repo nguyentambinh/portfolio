@@ -59,9 +59,20 @@ function allowsOrigin(request, publicOrigin) {
   if (!origin) return true;
   const host = request.headers.host;
   if (host && ['http', 'https'].some(scheme => origin === `${scheme}://${host}`)) return true;
-  if (!fromProxy(request) || !publicOrigin || origin !== publicOrigin.origin || !host) return false;
+  if (!fromProxy(request) || !host) return false;
   try {
-    return new URL(`http://${host}`).hostname === publicOrigin.hostname;
+    const proxyHost = new URL(`http://${host}`);
+    if (publicOrigin) return origin === publicOrigin.origin && proxyHost.hostname === publicOrigin.hostname;
+
+    // Older nginx templates drop the port. Cross-origin browser requests with
+    // this custom header require a CORS preflight, which this app does not allow.
+    const browserOrigin = new URL(origin);
+    return request.headers['x-portfolio-origin'] === origin
+      && ['http:', 'https:'].includes(browserOrigin.protocol)
+      && browserOrigin.origin === origin
+      && browserOrigin.hostname === proxyHost.hostname
+      && Boolean(browserOrigin.port)
+      && host === proxyHost.hostname;
   } catch {
     return false;
   }

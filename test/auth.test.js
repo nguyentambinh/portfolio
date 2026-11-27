@@ -2,6 +2,7 @@
 import assert from 'node:assert/strict';
 import { once } from 'node:events';
 import { mkdtemp, readFile, rm, rmdir } from 'node:fs/promises';
+import { request } from 'node:http';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { test } from 'node:test';
@@ -77,4 +78,46 @@ test('Luồng quản trị, đăng ký qua mã, quyền truy cập và đăng xu
   const saved = await readFile(path, 'utf8');
   assert.ok(!saved.includes(password));
   assert.ok(!saved.includes(userCookie.split('=')[1]));
+});
+
+test('Máy Web từ Git mới nhận yêu cầu khi Nginx bỏ cổng khỏi Host', async t => {
+  const directory = await mkdtemp(join(tmpdir(), 'portfolio-proxy-'));
+  const path = join(directory, 'accounts.json');
+  const server = await createApp({ path, adminPassword: 'Fixture-admin-9027' });
+  t.after(async () => {
+    await new Promise(resolve => server.close(resolve));
+    await rm(path, { force: true });
+    await rmdir(directory);
+  });
+  server.listen(0, '127.0.0.1');
+  await once(server, 'listening');
+  const address = `http://127.0.0.1:${server.address().port}`;
+  const origin = 'http://127.0.0.1:23001';
+  const post = (action, headers) => new Promise((resolve, reject) => {
+    const req = request(`${address}/api/auth/${action}`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', Host: '127.0.0.1', Origin: origin, ...headers },
+    }, response => {
+      response.resume();
+      resolve(response.statusCode);
+    });
+    req.on('error', reject);
+    req.end('{}');
+  });
+  for (const action of ['login', 'register']) {
+    assert.equal(await post(action, { 'X-Portfolio-Origin': origin }), 400);
+    assert.equal(await post(action), 403);
+  }
+  assert.equal(await post('login', { 'X-Portfolio-Origin': 'http://127.0.0.1:23002' }), 403);
+  assert.equal(await post('login', { Host: '127.0.0.1:23002', 'X-Portfolio-Origin': origin }), 403);
+  const preflight = await fetch(`${address}/api/auth/login`, {
+    method: 'OPTIONS',
+    headers: {
+      Origin: 'http://127.0.0.1:23002',
+      'Access-Control-Request-Method': 'POST',
+      'Access-Control-Request-Headers': 'content-type, x-portfolio-origin',
+    },
+  });
+  assert.equal(preflight.status, 404);
+  assert.equal(preflight.headers.get('access-control-allow-origin'), null);
 });
