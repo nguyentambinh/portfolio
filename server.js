@@ -10,7 +10,7 @@ const cookieName = 'portfolio_session';
 const contentTypes = { html: 'text/html', css: 'text/css', js: 'text/javascript' };
 const assets = new Map([
   ['/', 'index.html'], ['/index.html', 'index.html'],
-  ['/style.css', 'style.css'], ['/main.js', 'main.js'], ['/account.js', 'account.js'],
+  ['/style.css', 'style.css'], ['/main.js', 'main.js'], ['/account.js', 'account.js'], ['/admin.js', 'admin.js'],
 ]);
 const accountPages = new Set(['/dang-nhap', '/dang-ky', '/tai-khoan']);
 

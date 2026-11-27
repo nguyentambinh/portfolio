@@ -9,6 +9,7 @@
   <link rel="stylesheet" href="/style.css">
   <script src="/main.js" defer></script>
   <script src="/account.js" defer></script>
+  <script src="/admin.js" defer></script>
 </head>
 <body>
   <header class="top account-top">
@@ -25,38 +26,112 @@
   <main class="admin-main">
     <header class="admin-intro">
       <h1>Những gì mình đã thực hiện</h1>
-      <p>Trang quản trị ghi lại phần mình tham gia trong các dự án, từ triển khai hạ tầng đến kiểm thử và viết báo cáo.</p>
+      <p id="project-hint">Vuốt hoặc kéo ngang để chuyển dự án. Bấm vào từng mục để mở chi tiết.</p>
     </header>
-    <div class="project-records">
-      <section class="project-record" aria-labelledby="cloud-title">
-        <h2 id="cloud-title">TBT Cloud</h2>
-        <p>Mình điều phối đồ án nhóm, chuẩn bị hạ tầng trên hai máy cá nhân và tích hợp luồng tự thuê VPS. Mình vận hành gateway, mạng WireGuard qua CGNAT, cổng SSH và console trình duyệt.</p>
-        <p>Mình kiểm chứng việc cấp GPU RTX 5060 cho máy ảo AI, thuê cơ sở dữ liệu PostgreSQL, triển khai ứng dụng từ Git và kiểm tra vòng đời tính phí theo giờ.</p>
-        <ul class="tags"><li>Proxmox VE</li><li>WireGuard</li><li>FastAPI</li><li>Flutter Web</li></ul>
+    <div class="project-navigation">
+      <nav class="project-stops" aria-label="Chọn dự án">
+        <a href="#cloud" aria-current="true"><span>TBT Cloud</span></a>
+        <a href="#doan"><span>Đoàn – Hội</span></a>
+        <a href="#ml"><span>LLM và GNN</span></a>
+        <a href="#insurance"><span>Insurance</span></a>
+        <a href="#staff"><span>Nhân sự</span></a>
+      </nav>
+      <div class="project-controls" hidden>
+        <output class="project-position" aria-label="Vị trí dự án">1 / 5</output>
+        <button class="project-arrow project-prev" type="button" aria-label="Dự án trước" aria-controls="project-track" aria-disabled="true"></button>
+        <button class="project-arrow project-next" type="button" aria-label="Dự án tiếp theo" aria-controls="project-track"></button>
+      </div>
+    </div>
+    <div id="project-track" class="project-track" role="region" aria-label="Luồng năm dự án" aria-describedby="project-hint" tabindex="0">
+      <section class="project-record" id="cloud" aria-labelledby="cloud-title">
+        <div class="project-lead">
+          <h2 id="cloud-title">TBT Cloud</h2>
+          <p>Nền tảng tự thuê VPS, máy ảo GPU, cơ sở dữ liệu và triển khai web từ Git.</p>
+          <ul class="tags"><li>Proxmox VE</li><li>WireGuard</li><li>FastAPI</li><li>Flutter Web</li></ul>
+        </div>
+        <div class="project-details">
+          <h3>Phần mình thực hiện</h3>
+          <details name="cloud-details">
+            <summary>Hạ tầng và vận hành</summary>
+            <p>Mình điều phối đồ án nhóm, chuẩn bị hạ tầng trên hai máy cá nhân và tích hợp luồng tự thuê VPS. Mình vận hành gateway, mạng WireGuard qua CGNAT, cổng SSH và console trình duyệt.</p>
+          </details>
+          <details name="cloud-details">
+            <summary>GPU, dịch vụ và tính phí</summary>
+            <p>Mình kiểm chứng việc cấp GPU RTX 5060 cho máy ảo AI, thuê cơ sở dữ liệu PostgreSQL, triển khai ứng dụng từ Git và kiểm tra vòng đời tính phí theo giờ.</p>
+          </details>
+        </div>
       </section>
-      <section class="project-record" aria-labelledby="doan-title">
-        <h2 id="doan-title">Hệ thống quản lý Đoàn – Hội</h2>
-        <p>Mình xây dựng các luồng quản lý cán bộ, báo cáo và kế hoạch. Phần sơ đồ hỗ trợ hai chế độ 2D và 3D để xem quan hệ giữa các đơn vị và chức vụ.</p>
-        <p>Mình làm chức năng đọc tài liệu bằng AI, tích hợp dữ liệu với Supabase và vận hành web cùng bản Android trên cùng hệ thống.</p>
-        <ul class="tags"><li>Flutter</li><li>Supabase</li><li>PostgreSQL</li><li>Cloudflare Tunnel</li></ul>
+      <section class="project-record" id="doan" aria-labelledby="doan-title">
+        <div class="project-lead">
+          <h2 id="doan-title">Hệ thống quản lý Đoàn – Hội</h2>
+          <p>Ứng dụng web và Android để quản lý tổ chức, cán bộ và công việc Đoàn – Hội.</p>
+          <ul class="tags"><li>Flutter</li><li>Supabase</li><li>PostgreSQL</li><li>Cloudflare Tunnel</li></ul>
+        </div>
+        <div class="project-details">
+          <h3>Phần mình thực hiện</h3>
+          <details name="doan-details">
+            <summary>Quản lý và sơ đồ tổ chức</summary>
+            <p>Mình xây dựng các luồng quản lý cán bộ, báo cáo và kế hoạch. Phần sơ đồ hỗ trợ hai chế độ 2D và 3D để xem quan hệ giữa các đơn vị và chức vụ.</p>
+          </details>
+          <details name="doan-details">
+            <summary>Đọc tài liệu và tích hợp dữ liệu</summary>
+            <p>Mình làm chức năng đọc tài liệu bằng AI, tích hợp dữ liệu với Supabase và vận hành web cùng bản Android trên cùng hệ thống.</p>
+          </details>
+        </div>
       </section>
-      <section class="project-record" aria-labelledby="ml-title">
-        <h2 id="ml-title">Phát hiện lỗ hổng bằng LLM và GNN</h2>
-        <p>Mình chuẩn bị dữ liệu mã nguồn, dựng đồ thị CPG bằng Joern và trích xuất embedding với UniXcoder. Mình ghi nhận kết quả qua từng ngôn ngữ và đối chiếu với các nghiên cứu liên quan.</p>
-        <p>Mình tham gia ghép chuỗi xử lý và chuẩn bị ứng dụng demo để người xem hiểu đầu ra của mô hình phát hiện lỗ hổng.</p>
-        <ul class="tags"><li>Python</li><li>Joern</li><li>UniXcoder</li><li>PyTorch Geometric</li></ul>
+      <section class="project-record" id="ml" aria-labelledby="ml-title">
+        <div class="project-lead">
+          <h2 id="ml-title">Phát hiện lỗ hổng bằng LLM và GNN</h2>
+          <p>Nghiên cứu kết hợp biểu diễn mã nguồn và đồ thị chương trình để phân tích lỗ hổng.</p>
+          <ul class="tags"><li>Python</li><li>Joern</li><li>UniXcoder</li><li>PyTorch Geometric</li></ul>
+        </div>
+        <div class="project-details">
+          <h3>Phần mình thực hiện</h3>
+          <details name="ml-details">
+            <summary>Dữ liệu và đánh giá kết quả</summary>
+            <p>Mình chuẩn bị dữ liệu mã nguồn, dựng đồ thị CPG bằng Joern và trích xuất embedding với UniXcoder. Mình ghi nhận kết quả qua từng ngôn ngữ và đối chiếu với các nghiên cứu liên quan.</p>
+          </details>
+          <details name="ml-details">
+            <summary>Chuỗi xử lý và ứng dụng demo</summary>
+            <p>Mình tham gia ghép chuỗi xử lý và chuẩn bị ứng dụng demo để người xem hiểu đầu ra của mô hình phát hiện lỗ hổng.</p>
+          </details>
+        </div>
       </section>
-      <section class="project-record" aria-labelledby="insurance-title">
-        <h2 id="insurance-title">Insurance Microservices</h2>
-        <p>Mình tổ chức các bài thực hành .NET theo một kho Git, chạy hệ thống bảo hiểm với Docker Compose trên VPS và kiểm tra các luồng khi dịch vụ hoạt động thật.</p>
-        <p>Mình dùng k6 để kiểm thử tải và đọc kết quả nhằm tìm điểm cần xem lại ở kiến trúc và cấu hình chạy.</p>
-        <ul class="tags"><li>.NET</li><li>RabbitMQ</li><li>Docker Compose</li><li>k6</li></ul>
+      <section class="project-record" id="insurance" aria-labelledby="insurance-title">
+        <div class="project-lead">
+          <h2 id="insurance-title">Insurance Microservices</h2>
+          <p>Hệ thống bảo hiểm .NET theo kiến trúc microservices, được triển khai và kiểm thử trên VPS.</p>
+          <ul class="tags"><li>.NET</li><li>RabbitMQ</li><li>Docker Compose</li><li>k6</li></ul>
+        </div>
+        <div class="project-details">
+          <h3>Phần mình thực hiện</h3>
+          <details name="insurance-details">
+            <summary>Tổ chức mã và triển khai</summary>
+            <p>Mình tổ chức các bài thực hành .NET theo một kho Git, chạy hệ thống bảo hiểm với Docker Compose trên VPS và kiểm tra các luồng khi dịch vụ hoạt động thật.</p>
+          </details>
+          <details name="insurance-details">
+            <summary>Kiểm thử tải bằng k6</summary>
+            <p>Mình dùng k6 để kiểm thử tải và đọc kết quả nhằm tìm điểm cần xem lại ở kiến trúc và cấu hình chạy.</p>
+          </details>
+        </div>
       </section>
-      <section class="project-record" aria-labelledby="staff-title">
-        <h2 id="staff-title">Quản lý nhân sự và tài chính</h2>
-        <p>Mình phát triển các chức năng nhân sự, chấm công, tiền lương và tài chính từ ứng dụng Android Java. Ở phiên bản sau, nhóm chuyển giao diện sang Flutter và tách các dịch vụ theo khu vực bằng dart_frog.</p>
-        <p>Mình mô tả yêu cầu và các luồng nghiệp vụ bằng UML, duy trì dữ liệu mẫu và kiểm thử ứng dụng trên Android.</p>
-        <ul class="tags"><li>Android Java</li><li>SQLite</li><li>Flutter</li><li>dart_frog</li></ul>
+      <section class="project-record" id="staff" aria-labelledby="staff-title">
+        <div class="project-lead">
+          <h2 id="staff-title">Quản lý nhân sự và tài chính</h2>
+          <p>Ứng dụng quản lý nhân sự, chấm công, tiền lương và tài chính trên Android.</p>
+          <ul class="tags"><li>Android Java</li><li>SQLite</li><li>Flutter</li><li>dart_frog</li></ul>
+        </div>
+        <div class="project-details">
+          <h3>Phần mình thực hiện</h3>
+          <details name="staff-details">
+            <summary>Chức năng và phiên bản Flutter</summary>
+            <p>Mình phát triển các chức năng nhân sự, chấm công, tiền lương và tài chính từ ứng dụng Android Java. Ở phiên bản sau, nhóm chuyển giao diện sang Flutter và tách các dịch vụ theo khu vực bằng dart_frog.</p>
+          </details>
+          <details name="staff-details">
+            <summary>Mô hình nghiệp vụ và kiểm thử</summary>
+            <p>Mình mô tả yêu cầu và các luồng nghiệp vụ bằng UML, duy trì dữ liệu mẫu và kiểm thử ứng dụng trên Android.</p>
+          </details>
+        </div>
       </section>
     </div>
   </main>

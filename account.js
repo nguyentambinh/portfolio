@@ -36,6 +36,17 @@ const route = location.pathname;
 const page = { '/dang-nhap': 'login', '/dang-ky': 'register', '/tai-khoan': 'profile' }[route];
 if (page) document.getElementById(page).hidden = false;
 
+document.querySelectorAll('.password-toggle').forEach(button => {
+  const input = document.getElementById(button.getAttribute('aria-controls'));
+  button.addEventListener('click', () => {
+    const show = input.type === 'password';
+    input.type = show ? 'text' : 'password';
+    button.setAttribute('aria-pressed', String(show));
+    button.title = show ? 'Ẩn mật khẩu' : 'Hiện mật khẩu';
+  });
+  button.hidden = false;
+});
+
 onSubmit(document.getElementById('login-form'), 'Đang đăng nhập…', async data => {
   location.assign((await post('login', data)).next);
 });
