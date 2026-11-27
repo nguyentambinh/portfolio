@@ -1,0 +1,71 @@
+<!doctype html>
+<!-- Nguyễn Tâm Bình - 2324801030003 -->
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Tài khoản · Nguyễn Tâm Bình</title>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Be+Vietnam+Pro:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/style.css">
+  <script src="/main.js" defer></script>
+  <script src="/account.js" defer></script>
+</head>
+<body>
+  <header class="top account-top">
+    <a class="mark" href="/" aria-label="Portfolio của Nguyễn Tâm Bình">NTB</a>
+    <div class="account-actions"><a class="btn small" href="/">Về trang chủ</a></div>
+    <button class="mode" id="che-do" type="button" aria-label="Đổi giao diện sáng tối">◐</button>
+  </header>
+  <main class="account-main">
+    <section id="login" class="auth-panel" aria-labelledby="login-title" hidden>
+      <h1 id="login-title">Đăng nhập</h1>
+      <form id="login-form" method="post">
+        <label for="login-name">Email hoặc tên đăng nhập</label>
+        <input id="login-name" name="login" autocomplete="username" maxlength="254" required>
+        <label for="login-password">Mật khẩu</label>
+        <input id="login-password" name="password" type="password" autocomplete="current-password" maxlength="128" required>
+        <p class="form-status" role="status" data-status></p>
+        <button class="btn primary" type="submit">Đăng nhập</button>
+      </form>
+      <p class="auth-link">Chưa có tài khoản? <a href="/dang-ky">Đăng ký</a></p>
+    </section>
+    <section id="register" class="auth-panel" aria-labelledby="register-title" hidden>
+      <h1 id="register-title">Đăng ký</h1>
+      <form id="register-form" method="post">
+        <label for="register-name">Họ và tên</label>
+        <input id="register-name" name="name" autocomplete="name" maxlength="80" required>
+        <label for="register-email">Email</label>
+        <input id="register-email" name="email" type="email" autocomplete="email" maxlength="254" required>
+        <label for="register-password">Mật khẩu</label>
+        <input id="register-password" name="password" type="password" autocomplete="new-password" minlength="8" maxlength="128" required aria-describedby="password-hint">
+        <p id="password-hint" class="field-hint">Ít nhất 8 ký tự.</p>
+        <p class="form-status" role="status" data-status></p>
+        <button class="btn primary" type="submit">Gửi mã xác nhận</button>
+      </form>
+      <form id="verify-form" method="post" hidden>
+        <p class="verify-intro">Nhập mã 6 số vừa gửi tới <strong id="verify-email"></strong>. Mã có hiệu lực trong 10 phút.</p>
+        <label for="verify-code">Mã xác nhận</label>
+        <input id="verify-code" name="code" type="text" inputmode="numeric" autocomplete="one-time-code" pattern="[0-9]{6}" maxlength="6" required>
+        <p class="form-status" role="status" data-status></p>
+        <div class="cta">
+          <button class="btn primary" type="submit">Xác nhận</button>
+          <button class="btn" type="button" id="edit-email">Sửa email hoặc xin mã mới</button>
+        </div>
+      </form>
+      <p class="auth-link">Đã có tài khoản? <a href="/dang-nhap">Đăng nhập</a></p>
+    </section>
+    <section id="profile" class="auth-panel" aria-labelledby="profile-title" hidden>
+      <h1 id="profile-title">Tài khoản</h1>
+      <dl class="profile">
+        <div><dt>Họ và tên</dt><dd id="profile-name"></dd></div>
+        <div><dt>Email đã xác nhận</dt><dd id="profile-email"></dd></div>
+      </dl>
+      <form method="post" data-logout>
+        <p class="form-status" role="status" data-status></p>
+        <button class="btn" type="submit">Đăng xuất</button>
+      </form>
+    </section>
+    <noscript><p>Bật JavaScript để sử dụng các chức năng tài khoản.</p></noscript>
+  </main>
+</body>
+</html>

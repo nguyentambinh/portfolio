@@ -1,0 +1,64 @@
+<!doctype html>
+<!-- Nguyễn Tâm Bình - 2324801030003 -->
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Trang quản trị · Nguyễn Tâm Bình</title>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Be+Vietnam+Pro:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/style.css">
+  <script src="/main.js" defer></script>
+  <script src="/account.js" defer></script>
+</head>
+<body>
+  <header class="top account-top">
+    <a class="mark" href="/" aria-label="Portfolio của Nguyễn Tâm Bình">NTB</a>
+    <div class="account-actions">
+      <a class="btn small" href="/">Về trang chủ</a>
+      <form method="post" data-logout>
+        <button class="btn small" type="submit">Đăng xuất</button>
+        <p class="form-status logout-status" role="status" data-status></p>
+      </form>
+    </div>
+    <button class="mode" id="che-do" type="button" aria-label="Đổi giao diện sáng tối">◐</button>
+  </header>
+  <main class="admin-main">
+    <header class="admin-intro">
+      <h1>Những gì mình đã thực hiện</h1>
+      <p>Trang quản trị ghi lại phần mình tham gia trong các dự án, từ triển khai hạ tầng đến kiểm thử và viết báo cáo.</p>
+    </header>
+    <div class="project-records">
+      <section class="project-record" aria-labelledby="cloud-title">
+        <h2 id="cloud-title">TBT Cloud</h2>
+        <p>Mình điều phối đồ án nhóm, chuẩn bị hạ tầng trên hai máy cá nhân và tích hợp luồng tự thuê VPS. Mình vận hành gateway, mạng WireGuard qua CGNAT, cổng SSH và console trình duyệt.</p>
+        <p>Mình kiểm chứng việc cấp GPU RTX 5060 cho máy ảo AI, thuê cơ sở dữ liệu PostgreSQL, triển khai ứng dụng từ Git và kiểm tra vòng đời tính phí theo giờ.</p>
+        <ul class="tags"><li>Proxmox VE</li><li>WireGuard</li><li>FastAPI</li><li>Flutter Web</li></ul>
+      </section>
+      <section class="project-record" aria-labelledby="doan-title">
+        <h2 id="doan-title">Hệ thống quản lý Đoàn – Hội</h2>
+        <p>Mình xây dựng các luồng quản lý cán bộ, báo cáo và kế hoạch. Phần sơ đồ hỗ trợ hai chế độ 2D và 3D để xem quan hệ giữa các đơn vị và chức vụ.</p>
+        <p>Mình làm chức năng đọc tài liệu bằng AI, tích hợp dữ liệu với Supabase và vận hành web cùng bản Android trên cùng hệ thống.</p>
+        <ul class="tags"><li>Flutter</li><li>Supabase</li><li>PostgreSQL</li><li>Cloudflare Tunnel</li></ul>
+      </section>
+      <section class="project-record" aria-labelledby="ml-title">
+        <h2 id="ml-title">Phát hiện lỗ hổng bằng LLM và GNN</h2>
+        <p>Mình chuẩn bị dữ liệu mã nguồn, dựng đồ thị CPG bằng Joern và trích xuất embedding với UniXcoder. Mình ghi nhận kết quả qua từng ngôn ngữ và đối chiếu với các nghiên cứu liên quan.</p>
+        <p>Mình tham gia ghép chuỗi xử lý và chuẩn bị ứng dụng demo để người xem hiểu đầu ra của mô hình phát hiện lỗ hổng.</p>
+        <ul class="tags"><li>Python</li><li>Joern</li><li>UniXcoder</li><li>PyTorch Geometric</li></ul>
+      </section>
+      <section class="project-record" aria-labelledby="insurance-title">
+        <h2 id="insurance-title">Insurance Microservices</h2>
+        <p>Mình tổ chức các bài thực hành .NET theo một kho Git, chạy hệ thống bảo hiểm với Docker Compose trên VPS và kiểm tra các luồng khi dịch vụ hoạt động thật.</p>
+        <p>Mình dùng k6 để kiểm thử tải và đọc kết quả nhằm tìm điểm cần xem lại ở kiến trúc và cấu hình chạy.</p>
+        <ul class="tags"><li>.NET</li><li>RabbitMQ</li><li>Docker Compose</li><li>k6</li></ul>
+      </section>
+      <section class="project-record" aria-labelledby="staff-title">
+        <h2 id="staff-title">Quản lý nhân sự và tài chính</h2>
+        <p>Mình phát triển các chức năng nhân sự, chấm công, tiền lương và tài chính từ ứng dụng Android Java. Ở phiên bản sau, nhóm chuyển giao diện sang Flutter và tách các dịch vụ theo khu vực bằng dart_frog.</p>
+        <p>Mình mô tả yêu cầu và các luồng nghiệp vụ bằng UML, duy trì dữ liệu mẫu và kiểm thử ứng dụng trên Android.</p>
+        <ul class="tags"><li>Android Java</li><li>SQLite</li><li>Flutter</li><li>dart_frog</li></ul>
+      </section>
+    </div>
+  </main>
+</body>
+</html>
