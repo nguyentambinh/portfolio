@@ -99,6 +99,7 @@ h2 { font-size: clamp(36px, 6vw, 56px); line-height: 1; margin: 0 0 28px; }
 }
 .auth-panel .btn, .account-actions button { cursor: pointer; background: transparent; color: var(--ink); }
 .auth-panel .btn.primary { background: var(--accent); color: var(--accent-ink); }
+.auth-panel .btn[hidden] { display: none; }
 .auth-panel .btn:disabled, .account-actions button:disabled { opacity: .64; cursor: wait; }
 .field-hint, .auth-link, .verify-intro { color: var(--muted); font-size: 14px; }
 .field-hint { margin: 5px 0 0; }

@@ -47,9 +47,24 @@ document.querySelectorAll('.password-toggle').forEach(button => {
   button.hidden = false;
 });
 
-onSubmit(document.getElementById('login-form'), 'Đang đăng nhập…', async data => {
+const loginForm = document.getElementById('login-form');
+onSubmit(loginForm, 'Đang đăng nhập…', async data => {
   location.assign((await post('login', data)).next);
 });
+
+if (page === 'login') {
+  const quickLogin = document.getElementById('quick-login');
+  const { login, password } = loginForm.elements;
+  const submit = loginForm.querySelector('[type="submit"]');
+
+  quickLogin.addEventListener('click', () => {
+    if (submit.disabled) return;
+    if (!login.value.trim()) login.value = 'admin';
+    if (password.value) loginForm.requestSubmit(submit);
+    else password.focus();
+  });
+  quickLogin.hidden = false;
+}
 
 if (page === 'register') {
   const register = document.getElementById('register-form');

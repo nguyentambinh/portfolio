@@ -19,4 +19,6 @@ npm start
 
 Mở `http://localhost:3000` khi chạy trên máy của mình. Khi triển khai bằng Web từ Git, chọn kho `https://github.com/nguyentambinh/portfolio`, nhánh `main`, rồi cấp các biến môi trường trên máy ảo. Dữ liệu tài khoản và thông tin Gmail nằm trong cấu hình riêng của máy chạy.
 
+Mỗi máy Web từ Git mới cần cấp riêng `PORTFOLIO_ADMIN_PASSWORD` cho dịch vụ `tbt-app` rồi khởi động lại dịch vụ. Khi thiếu biến này, tài khoản `admin` chưa thể đăng nhập. Nút **Đăng nhập nhanh** gửi biểu mẫu nếu đã có mật khẩu, kể cả mật khẩu do trình duyệt tự điền. Nếu ô mật khẩu còn trống, nút điền tên `admin` khi cần và chuyển con trỏ đến ô mật khẩu.
+
 Portfolio đăng nhập và đăng ký được trên cả mẫu Web từ Git cũ, nơi Nginx bỏ cổng khỏi `Host`. Ứng dụng kiểm tra địa chỉ gốc trình duyệt gửi kèm và chỉ dùng cách này khi Nginx kết nối từ cùng máy. Nếu muốn đặt địa chỉ công khai cố định cho proxy cũ, dùng `PORTFOLIO_PUBLIC_ORIGIN` với đủ giao thức và cổng, ví dụ `http://103.77.208.60:23001`.
