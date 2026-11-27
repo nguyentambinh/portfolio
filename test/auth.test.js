@@ -15,6 +15,7 @@ test('Luồng quản trị, đăng ký qua mã, quyền truy cập và đăng xu
     path,
     adminPassword: 'Fixture-admin-9027',
     sendCode: async (recipient, code) => { mail.push({ recipient, code }); },
+    publicOrigin: 'http://127.0.0.1:23001',
   });
   server.listen(0, '127.0.0.1');
   await once(server, 'listening');
@@ -26,8 +27,8 @@ test('Luồng quản trị, đăng ký qua mã, quyền truy cập và đăng xu
   });
   const origin = `http://127.0.0.1:${server.address().port}`;
   const get = (route, cookie) => fetch(origin + route, { redirect: 'manual', headers: cookie ? { Cookie: cookie } : {} });
-  const post = (route, body, cookie, caller = origin) => fetch(origin + '/api/auth/' + route, {
-    method: 'POST', headers: { 'Content-Type': 'application/json', Origin: caller, ...(cookie ? { Cookie: cookie } : {}) },
+  const post = (route, body, cookie, caller = origin, host = new URL(origin).host) => fetch(origin + '/api/auth/' + route, {
+    method: 'POST', headers: { 'Content-Type': 'application/json', Origin: caller, Host: host, ...(cookie ? { Cookie: cookie } : {}) },
     body: JSON.stringify(body),
   });
   const cookieOf = response => response.headers.get('set-cookie').split(';', 1)[0];
@@ -38,6 +39,8 @@ test('Luồng quản trị, đăng ký qua mã, quyền truy cập và đăng xu
   assert.equal((await get('/data/accounts.json')).status, 404);
   assert.equal((await post('login', { login: 'admin', password: 'wrong' })).status, 401);
   assert.equal((await post('login', { login: 'admin', password: 'Fixture-admin-9027' }, null, 'https://example.test')).status, 403);
+  assert.equal((await post('login', { login: 'admin', password: 'wrong' }, null, 'http://127.0.0.1:23002', '127.0.0.1')).status, 403);
+  assert.equal((await post('login', { login: 'admin', password: 'wrong' }, null, 'http://127.0.0.1:23001', '127.0.0.1')).status, 401);
 
   const admin = await post('login', { login: 'admin', password: 'Fixture-admin-9027' });
   assert.equal(admin.status, 200);
@@ -53,7 +56,7 @@ test('Luồng quản trị, đăng ký qua mã, quyền truy cập và đăng xu
 
   const email = 'tenant@example.test';
   const password = 'Fixture-guest-8024';
-  const registration = await post('register', { name: 'Khách thử nghiệm', email, password });
+  const registration = await post('register', { name: 'Khách thử nghiệm', email, password }, null, 'http://127.0.0.1:23001', '127.0.0.1');
   assert.equal(registration.status, 202);
   assert.equal(mail.length, 1);
   assert.equal(mail[0].recipient, email);

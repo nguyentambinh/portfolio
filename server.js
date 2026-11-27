@@ -54,6 +54,19 @@ function fromProxy(request) {
   return ['127.0.0.1', '::1', '::ffff:127.0.0.1'].includes(request.socket.remoteAddress);
 }
 
+function allowsOrigin(request, publicOrigin) {
+  const origin = request.headers.origin;
+  if (!origin) return true;
+  const host = request.headers.host;
+  if (host && ['http', 'https'].some(scheme => origin === `${scheme}://${host}`)) return true;
+  if (!fromProxy(request) || !publicOrigin || origin !== publicOrigin.origin || !host) return false;
+  try {
+    return new URL(`http://${host}`).hostname === publicOrigin.hostname;
+  } catch {
+    return false;
+  }
+}
+
 function sendCookie(request, response, token) {
   const secure = request.socket.encrypted || (fromProxy(request) && request.headers['x-forwarded-proto'] === 'https');
   response.setHeader('Set-Cookie', `${cookieName}=${token ?? ''}; Path=/; HttpOnly; SameSite=Lax; Max-Age=${token ? sessionMs / 1000 : 0}${secure ? '; Secure' : ''}`);
@@ -98,9 +111,13 @@ export function gmailSender(user, password) {
   };
 }
 
-export async function createApp({ path, adminPassword, sendCode }) {
+export async function createApp({ path, adminPassword, sendCode, publicOrigin }) {
   const accounts = await createAccounts({ path, adminPassword, sendCode });
   const limit = makeLimiter();
+  const allowedOrigin = publicOrigin ? new URL(publicOrigin) : null;
+  if (allowedOrigin && !['http:', 'https:'].includes(allowedOrigin.protocol)) {
+    throw new Error('PORTFOLIO_PUBLIC_ORIGIN phải là một địa chỉ HTTP hoặc HTTPS.');
+  }
 
   return createServer(async (request, response) => {
     response.setHeader('Cache-Control', 'no-store');
@@ -127,8 +144,7 @@ export async function createApp({ path, adminPassword, sendCode }) {
       }
       const isAuthRequest = request.method === 'POST' && pathname.startsWith('/api/auth/');
       if (!isAuthRequest) return sendJson(response, 404, { message: 'Không tìm thấy trang.' });
-      const origin = request.headers.origin;
-      if (origin && !['http', 'https'].some(scheme => origin === `${scheme}://${request.headers.host}`)) {
+      if (!allowsOrigin(request, allowedOrigin)) {
         throw new AccountError(403, 'Nguồn gửi yêu cầu chưa hợp lệ.');
       }
       const input = await readJson(request);
@@ -175,6 +191,7 @@ if (process.argv[1] && pathToFileURL(resolve(process.argv[1])).href === import.m
     path: process.env.PORTFOLIO_DATA_FILE || './data/accounts.json',
     adminPassword: process.env.PORTFOLIO_ADMIN_PASSWORD,
     sendCode: gmailSender(process.env.GMAIL_SMTP_USER, process.env.GMAIL_SMTP_APP_PASSWORD),
+    publicOrigin: process.env.PORTFOLIO_PUBLIC_ORIGIN,
   });
   const port = Number(process.env.PORT || 3000);
   server.listen(port, '127.0.0.1', () => console.log(`Portfolio đang chạy ở cổng ${port}.`));

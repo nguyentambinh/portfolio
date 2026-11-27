@@ -18,3 +18,5 @@ npm start
 ```
 
 Mở `http://localhost:3000` khi chạy trên máy của mình. Khi triển khai bằng Web từ Git, chọn kho `https://github.com/nguyentambinh/portfolio`, nhánh `main`, rồi cấp các biến môi trường trên máy ảo. Dữ liệu tài khoản và thông tin Gmail nằm trong cấu hình riêng của máy chạy.
+
+Nginx chuyển nguyên địa chỉ truy cập, gồm cả cổng, bằng `proxy_set_header Host $http_host;`. Với mẫu Web từ Git cũ bỏ mất cổng, đặt `PORTFOLIO_PUBLIC_ORIGIN` bằng đúng địa chỉ dịch vụ mà TBT Cloud cấp, gồm giao thức và cổng. Ví dụ `http://103.77.208.60:23001`.
